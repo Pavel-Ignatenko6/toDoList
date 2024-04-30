@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-weight: bold;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+.btn {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: none;
+  font-weight: bold;
+  font-size: .9rem;
+  cursor: pointer;
+  background-color: #807eff;
+  color: #fff;
+}
+
+input {
+  font-weight: bold;
+  height: 3rem;
+  border-radius: 3rem;
+  border: none;
+  padding-left: 1rem;
+}
+
+.container {
+  min-width: 31.25rem;
+  width: 25%;
+  border-radius: 2.5rem;
+  padding: 1rem 1rem;
+  margin: 2rem auto 0;
+}

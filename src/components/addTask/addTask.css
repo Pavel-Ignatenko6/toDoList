@@ -1,0 +1,29 @@
+
+.add-task-container {
+  background-color: #c6c6c6a0;
+}
+
+.add-task-title {
+    margin: 0 0 .5rem 1.25rem;
+}
+
+.add-task-inputs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: .5rem;
+}
+
+.single-input {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1rem;
+}
+
+.label {
+  margin: 0 0 .25rem .5rem;
+  font-size: 1.25rem;
+}
+
+.add-task-btn {
+    align-self: flex-end;
+}
