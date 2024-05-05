@@ -1,9 +1,7 @@
+import { useState } from 'react'
 import './styleAddTask.css'
 
-// удалить v
-const taskName = document.getElementById('Task name')
-const taskDesc = document.getElementById('Task description')
-
+// get date for a task
 const date = new Date()
 let month = date.getMonth() + 1
 let day = date.getDate()
@@ -15,21 +13,33 @@ if (day < 10) {
   day = '0' + day
 }
 const taskDate = `${month}.${day}.${year}`
-let taskArr
-let counter = 1
-const addToLocalStorage = () => {
-  localStorage.setItem('task', [taskName.value, taskDesc.value, taskDate])
-  counter++
-}
 
-const renderTasks = () => {
+const renderTaskInputs = () => {
+  const taskInputsArr = ['Task name', 'Task description']
+  const placeHolderArr = ['Buy groceries', 'Milk, eggs, bread']
+  // states for input values
+  const [taskNameValue, setTaskNameValue] = useState('')
+  const [taskDescValue, setTaskDescValue] = useState('')
+
+  const inputValuesArr = [taskNameValue, taskDescValue]
+  function changeInputValues(e) {
+    if (e.target.name === 'Task name') {
+      setTaskNameValue(e.target.value)
+    }
+    if (e.target.name === 'Task description') {
+      setTaskDescValue(e.target.value)
+    }
+  }
+
   const addButtonClick = () => {
-    addToLocalStorage()
-    console.log('add button clicked !!!')
-    console.log(taskName)
-    console.log(taskDesc)
-    console.log(taskDate)
-    console.log(taskName.value)
+    const regex = /^[a-zA-Z0-9\s\W]+$/
+    // check if inputs contain letters
+    if (regex.test(taskNameValue) && regex.test(taskDescValue)) {
+      localStorage.setItem(taskNameValue, JSON.stringify([taskNameValue, taskDescValue, taskDate]))
+      console.log('add button clicked !!!')
+    } else {
+      alert('Task name and description must contain only letters and numbers')
+    }
 
     // <div className="single-task">
     //   <label className="single-checkbox" for="status">
@@ -42,30 +52,29 @@ const renderTasks = () => {
     //   <i class="fa-solid fa-xmark delete-task-icon"></i>
     // </div>
   }
-  return (
-    <button className="add-task-btn btn" onClick={addButtonClick}>
-      Add task
-    </button>
-  )
-}
 
-const taskInputsArr = ['Task name', 'Task description']
-
-const renderTaskInputs = () => {
   return (
     <>
       <div className="add-task-inputs">
-        {taskInputsArr.map(inputName => {
+        {taskInputsArr.map((inputName, index) => {
           return (
             <div key={inputName} className="single-input">
               <label htmlFor={inputName} className="label">
                 {inputName}
               </label>
-              <input type="text" id={inputName} placeholder="Buy groceries" />
+              <input
+                type="text"
+                name={inputName}
+                placeholder={placeHolderArr[index]}
+                value={inputValuesArr[index]}
+                onChange={changeInputValues}
+              />
             </div>
           )
         })}
-        {renderTasks()}
+        <button className="add-task-btn btn" onClick={addButtonClick}>
+          Add task
+        </button>
       </div>
     </>
   )
