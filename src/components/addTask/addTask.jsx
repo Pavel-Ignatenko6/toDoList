@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import './styleAddTask.css'
+import {addToLocalStorage} from '../../helpers/handleLocalStorage'
 
+// to make a fucntion for returning formated date
 // get date for a task
 const date = new Date()
 let month = date.getMonth() + 1
@@ -14,6 +16,7 @@ if (day < 10) {
 }
 const taskDate = `${month}.${day}.${year}`
 
+// сделать компонент v
 const renderTaskInputs = () => {
   const taskInputsArr = ['Task name', 'Task description']
   const placeHolderArr = ['Buy groceries', 'Milk, eggs, bread']
@@ -31,26 +34,16 @@ const renderTaskInputs = () => {
     }
   }
 
+  console.log(localStorage)
+
   const addButtonClick = () => {
     const regex = /^[a-zA-Z0-9\s\W]+$/
-    // check if inputs contain letters
+    // check if inputs contain letters  // value.trim()
     if (regex.test(taskNameValue) && regex.test(taskDescValue)) {
-      localStorage.setItem(taskNameValue, JSON.stringify([taskNameValue, taskDescValue, taskDate]))
-      console.log('add button clicked !!!')
+      addToLocalStorage(taskNameValue, [taskNameValue, taskDescValue, taskDate])
     } else {
       alert('Task name and description must contain only letters and numbers')
     }
-
-    // <div className="single-task">
-    //   <label className="single-checkbox" for="status">
-    //     <input type="checkbox" name="status" className="input" />
-    //     <span className="checkmark"></span>
-    //   </label>
-    //   <h3 className="task-name">Купить продукты</h3>
-    //   <h3 className="task-description">Молоко, сыр, яйца</h3>
-    //   <h3 className="task-date">24.04.2024</h3>
-    //   <i class="fa-solid fa-xmark delete-task-icon"></i>
-    // </div>
   }
 
   return (
@@ -58,7 +51,7 @@ const renderTaskInputs = () => {
       <div className="add-task-inputs">
         {taskInputsArr.map((inputName, index) => {
           return (
-            <div key={inputName} className="single-input">
+            <div key={inputName + index} className="single-input">
               <label htmlFor={inputName} className="label">
                 {inputName}
               </label>
