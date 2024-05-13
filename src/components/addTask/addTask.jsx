@@ -34,8 +34,6 @@ const renderTaskInputs = () => {
     }
   }
 
-  console.log(localStorage)
-
   const addButtonClick = () => {
     const regex = /^[a-zA-Z0-9\s\W]+$/
     // check if inputs contain letters  // value.trim()
