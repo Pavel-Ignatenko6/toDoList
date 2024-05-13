@@ -4,35 +4,27 @@ import { Sorting } from './Sorting'
 
 export function DisplayTask() {
   const [tasks, setTasks] = useState([])
-  // console.log(tasks);
-
-  // Обсудить на уроке vvv
-
-  // useEffect(() => {
-  //   if (localStorage) {
-  //     const keys = Object.keys(localStorage)
-  //     // iterate over keys and get values
-  //     for (let key of keys) {
-  //       setTasks(prev => [...prev, [JSON.parse(localStorage.getItem(key))]])
-  //     }
-  //     console.log(keys);
-  //   }
-  // }, [localStorage])
 
   useEffect(() => {
-    if (localStorage) {
-      const keys = Object.keys(localStorage)
-      // create an array to store the tasks
-      const tasksArray = []
-      // iterate over keys and get values
-      keys.forEach(key => {
-        tasksArray.push(JSON.parse(localStorage.getItem(key)))
-      })
-      setTasks(tasksArray)
-    }
-  }, [localStorage])
+    const getStorageData = () => {
+      if (localStorage) {
+        const tasksArray = []
+        const keys = Object.keys(localStorage)
+        // create an array to store the tasks
+        // iterate over keys and get values
+        keys.forEach(key => {
+          tasksArray.push(JSON.parse(localStorage.getItem(key)))
+        })
 
-  console.log(tasks);
+        setTasks(tasksArray)
+      }
+    }
+    getStorageData()
+
+    window.addEventListener('storage', getStorageData)
+
+    return () => window.removeEventListener('storage', getStorageData)
+  }, [])
 
   return (
     <div className="display-task-container container">
@@ -50,7 +42,7 @@ export function DisplayTask() {
           {tasks.map(([taskNameValue, taskDescValue, taskDate]) => {
             return (
               // add tasks
-              <div key={(taskNameValue + taskDescValue + taskDate)} className="single-task">
+              <div key={taskNameValue + taskDescValue + taskDate} className="single-task">
                 <label className="single-checkbox" htmlFor="status">
                   <input type="checkbox" name="status" className="input" />
                   <span className="checkmark"></span>
