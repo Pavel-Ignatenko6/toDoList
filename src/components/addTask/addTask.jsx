@@ -38,7 +38,7 @@ const renderTaskInputs = () => {
     const regex = /^[a-zA-Z0-9\s\W]+$/
     // check if inputs contain letters  // value.trim()
     if (regex.test(taskNameValue) && regex.test(taskDescValue)) {
-      addToLocalStorage(taskNameValue, [taskNameValue, taskDescValue, taskDate])
+      addToLocalStorage([taskNameValue, taskDescValue, taskDate])
     } else {
       alert('Task name and description must contain only letters and numbers')
     }
