@@ -7,15 +7,12 @@ export function DisplayTask() {
 
   useEffect(() => {
     const getStorageData = () => {
-      if (localStorage) {
+      if (localStorage.getItem('tasks')) {
+        const tasksArray = JSON.parse(localStorage.getItem('tasks'))
+        console.log(tasksArray)
+        setTasks(tasksArray)
+      } else {
         const tasksArray = []
-        const keys = Object.keys(localStorage)
-        // create an array to store the tasks
-        // iterate over keys and get values
-        keys.forEach(key => {
-          tasksArray.push(JSON.parse(localStorage.getItem(key)))
-        })
-
         setTasks(tasksArray)
       }
     }
