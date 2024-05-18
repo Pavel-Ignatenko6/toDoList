@@ -56,6 +56,11 @@
   align-items: center;
 }
 
+.single-task.completed {
+  text-decoration:line-through;
+  opacity: 0.6;
+}
+
 .delete-task-icon {
   color: red;
 }

@@ -1,23 +1,21 @@
-import { useState } from 'react'
 import './styleAddTask.css'
-import {addToLocalStorage} from '../../helpers/handleLocalStorage'
+import { useState } from 'react'
+import { addToLocalStorage } from '../../helpers/handleLocalStorage'
+export const TaskInputs = () => {
+  // to make a fucntion for returning formated date
+  // get date for a task
+  const date = new Date()
+  let month = date.getMonth() + 1
+  let day = date.getDate()
+  const year = date.getFullYear()
+  if (month < 9) {
+    month = '0' + month
+  }
+  if (day < 10) {
+    day = '0' + day
+  }
+  const taskDate = `${month}.${day}.${year}`
 
-// to make a fucntion for returning formated date
-// get date for a task
-const date = new Date()
-let month = date.getMonth() + 1
-let day = date.getDate()
-const year = date.getFullYear()
-if (month < 9) {
-  month = '0' + month
-}
-if (day < 10) {
-  day = '0' + day
-}
-const taskDate = `${month}.${day}.${year}`
-
-// сделать компонент v
-const renderTaskInputs = () => {
   const taskInputsArr = ['Task name', 'Task description']
   const placeHolderArr = ['Buy groceries', 'Milk, eggs, bread']
   // states for input values
@@ -45,7 +43,8 @@ const renderTaskInputs = () => {
   }
 
   return (
-    <>
+    <div className="add-task-container container">
+      <h2 className="add-task-title">Add task</h2>
       <div className="add-task-inputs">
         {taskInputsArr.map((inputName, index) => {
           return (
@@ -67,15 +66,6 @@ const renderTaskInputs = () => {
           Add task
         </button>
       </div>
-    </>
-  )
-}
-
-export function AddTask() {
-  return (
-    <div className="add-task-container container">
-      <h2 className="add-task-title">Add task</h2>
-      {renderTaskInputs()}
     </div>
   )
 }
