@@ -2,12 +2,36 @@ import { useState, useEffect } from 'react'
 import './styleDisplayTask.css'
 import { Sorting } from './Sorting'
 
-export function TaskDisplay() {
-  const [tasks, setTasks] = useState([])
-  // useState for a filter checkbox
-  const [isChecked, setIsChecked] = useState(true)
-  const [isCompleted, setIsCompleted] = useState(true) // - УДАЛИТЬ
+const Task = ({ taskNameValue, taskDescValue, taskDate, handleCompletedTasks, isCompleted }) => {
+  return (
+    <div className={`single-task ${isCompleted ? 'completed' : ''}`}>
+      <label className="single-checkbox" htmlFor="status">
+        <input
+          type="checkbox"
+          name="status"
+          checked={isCompleted}
+          className="input task-input"
+          onChange={() => handleCompletedTasks(taskNameValue)}
+        />
+        <span className="checkmark"></span>
+      </label>
+      <h3 className="task-name">{taskNameValue}</h3>
+      <h3 className="task-description">{taskDescValue}</h3>
+      <h3 className="task-date">{taskDate}</h3>
+      <i className="fa-solid fa-xmark delete-task-icon"></i>
+    </div>
+  )
+}
 
+export function TaskDisplay() {
+  // state to store tasks from local storage
+  const [tasks, setTasks] = useState([])
+  // state to store completed tasks
+  const [completedTasks, setCompletedTasks] = useState([])
+  // state for a filter checkbox
+  const [isChecked, setIsChecked] = useState(false)
+
+  // useEffect to get data from local storage
   useEffect(() => {
     const getStorageData = () => {
       if (localStorage.getItem('tasks')) {
@@ -25,23 +49,27 @@ export function TaskDisplay() {
     return () => window.removeEventListener('storage', getStorageData)
   }, [])
 
-  const markAsCompleted = e => {
-    const task = e.target.parentElement.parentElement
-    if (e.target.checked == true) {
-      task.classList.add('completed')
-      setIsCompleted(true)
+  // handle completed tasks
+  const handleCompletedTasks = taskNameValue => {
+    // if task is already completed, remove it from completed tasks...
+    if (completedTasks.some(task => task === taskNameValue)) {
+      setCompletedTasks(completedTasks.filter(task => task !== taskNameValue))
+      // ... otherwise, add it to completedTasks
     } else {
-      task.classList.remove('completed')
-      setIsCompleted(false)
+      setCompletedTasks([...completedTasks, taskNameValue])
     }
   }
 
-  const hideCompleted = e => {
-    const bool = true
-    if (e.target.checked == false) {
-      setIsChecked(bool)
+  const handleFilter = () => {
+    setIsChecked(!isChecked)
+  }
+
+  const getTasks = () => {
+    // if filter is checked, return tasks that are not in completedTasks
+    if (isChecked) {
+      return tasks.filter(task => completedTasks.every(completedTask => completedTask !== task[0]))
     } else {
-      setIsChecked(!bool)
+      return tasks
     }
   }
 
@@ -50,7 +78,7 @@ export function TaskDisplay() {
       <h2>My tasks</h2>
       <label className="single-checkbox" htmlFor="filter">
         <span className="checkbox-wrapper">Show only unfulfilled</span>
-        <input type="checkbox" name="filter" className="input filter-input" onChange={hideCompleted} />
+        <input type="checkbox" name="filter" checked={isChecked} className="input filter-input" onChange={handleFilter} />
         <span className="checkmark"></span>
       </label>
       <input type="text" placeholder="Search" className="search-bar" />
@@ -58,20 +86,17 @@ export function TaskDisplay() {
       <div className="display">
         <Sorting />
         <div className="tasks">
-          {tasks.map(([taskNameValue, taskDescValue, taskDate]) => {
+          {getTasks().map(task => {
+            const [taskNameValue, taskDescValue, taskDate] = task
             return (
-              // add tasks
-              isChecked &&
-              <div key={taskNameValue + taskDescValue + taskDate} className="single-task">
-                <label className="single-checkbox" htmlFor="status">
-                  <input type="checkbox" name="status" className="input task-input" onChange={markAsCompleted} />
-                  <span className="checkmark"></span>
-                </label>
-                <h3 className="task-name">{taskNameValue}</h3>
-                <h3 className="task-description">{taskDescValue}</h3>
-                <h3 className="task-date">{taskDate}</h3>
-                <i className="fa-solid fa-xmark delete-task-icon"></i>
-              </div>
+              <Task
+                key={taskNameValue + taskDescValue + taskDate}
+                taskNameValue={taskNameValue}
+                taskDescValue={taskDescValue}
+                taskDate={taskDate}
+                isCompleted={completedTasks.some(task => task === taskNameValue)}
+                handleCompletedTasks={handleCompletedTasks}
+              />
             )
           })}
         </div>
