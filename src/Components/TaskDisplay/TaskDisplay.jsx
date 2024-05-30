@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import './styleDisplayTask.css'
+import './styleTaskDisplay.css'
 import { Sorting } from './Sorting'
 
-const Task = ({ taskNameValue, taskDescValue, taskDate, handleCompletedTasks, isCompleted }) => {
+const Task = ({ taskNameValue, taskDescValue, taskDate, handleCompletedTasks, isCompleted, deleteTask, index }) => {
   return (
     <div className={`single-task ${isCompleted ? 'completed' : ''}`}>
       <label className="single-checkbox" htmlFor="status">
@@ -14,11 +14,11 @@ const Task = ({ taskNameValue, taskDescValue, taskDate, handleCompletedTasks, is
           onChange={() => handleCompletedTasks(taskNameValue)}
         />
         <span className="checkmark"></span>
+      <span className="task-name">{taskNameValue}</span>
+      <span className="task-description">{taskDescValue}</span>
+      <span className="task-date">{taskDate}</span>
+      <i className="fa-solid fa-xmark delete-task-icon" onClick={() => deleteTask(index)}></i>
       </label>
-      <h3 className="task-name">{taskNameValue}</h3>
-      <h3 className="task-description">{taskDescValue}</h3>
-      <h3 className="task-date">{taskDate}</h3>
-      <i className="fa-solid fa-xmark delete-task-icon"></i>
     </div>
   )
 }
@@ -73,10 +73,18 @@ export function TaskDisplay() {
     }
   }
 
+  // hadle deleted tasks
+  const deleteTask = (index) => {
+    const newTasks = [...tasks]
+    newTasks.splice(index, 1)
+    setTasks(newTasks)
+    localStorage.setItem('tasks', JSON.stringify(newTasks))
+  }
+
   return (
     <div className="display-task-container container">
       <h2>My tasks</h2>
-      <label className="single-checkbox" htmlFor="filter">
+      <label className="single-checkbox" id="filter-checkbox" htmlFor="filter">
         <span className="checkbox-wrapper">Show only unfulfilled</span>
         <input type="checkbox" name="filter" checked={isChecked} className="input filter-input" onChange={handleFilter} />
         <span className="checkmark"></span>
@@ -86,7 +94,7 @@ export function TaskDisplay() {
       <div className="display">
         <Sorting />
         <div className="tasks">
-          {getTasks().map(task => {
+          {getTasks().map((task, index) => {
             const [taskNameValue, taskDescValue, taskDate] = task
             return (
               <Task
@@ -96,6 +104,8 @@ export function TaskDisplay() {
                 taskDate={taskDate}
                 isCompleted={completedTasks.some(task => task === taskNameValue)}
                 handleCompletedTasks={handleCompletedTasks}
+                deleteTask={deleteTask}
+                index={index}
               />
             )
           })}
