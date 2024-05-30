@@ -41,8 +41,7 @@ input {
 }
 
 .container {
-  min-width: 31.25rem;
-  width: 25%;
+  width: 32rem;
   border-radius: 2.5rem;
   padding: 1rem 1rem;
   margin: 2rem auto 0;

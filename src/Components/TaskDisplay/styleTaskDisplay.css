@@ -1,7 +1,11 @@
-
 .display-task-container {
   background-color: #c6c6c6a0;
   position: relative;
+  width: 40rem;
+}
+
+#filter-checkbox {
+  margin: 1rem;
 }
 
 .search-bar {
@@ -13,15 +17,14 @@
 
 .display {
   background-color: #fff;
-}
-
-.tasks {
-  border: 2px solid blue;
+  margin: .2rem .2rem;
 }
 
 .task-sorting-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-top: 1rem;
+  padding: 1.5rem 1rem;
 }
 
 .single-sorting {
@@ -31,13 +34,13 @@
 .sort-icons {
   width: 1rem;
   height: 1rem;
-  margin-left: .7rem;
+  margin-left: 0.7rem;
 }
 
 .single-sort-icon {
   color: #807eff;
   cursor: pointer;
-  height: .25rem;
+  height: 0.25rem;
 }
 
 .fa-sort-up,
@@ -46,36 +49,58 @@
 }
 
 .tasks {
-  /* temporary put height below */
-  height: 150px;
+  border-top: 3px solid #c6c6c6a0;
+  padding: 0.5rem 0;
+  min-height: 150px;
 }
 
 .single-task {
   position: relative;
   display: flex;
   align-items: center;
+  margin: 0.3rem 0 1rem 3rem;
 }
 
 .single-task.completed {
-  text-decoration:line-through;
+  text-decoration: line-through;
   opacity: 0.6;
+}
+
+.single-checkbox span {
+  display: inline-block;
+}
+
+.task-name {
+  margin-left: 5.5rem;
+  width: 7rem;
+}
+
+.task-description {
+  margin-left: 2rem;
+  width: 8rem;
+}
+
+.task-date {
+  margin-left: 3rem;
 }
 
 .delete-task-icon {
   color: red;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-left: .5rem;
 }
-
 
 /* Checkbox style */
 
 /* Customize the label (single-checkbox) */
 .single-checkbox {
-  display: block;
+  display: flex;
+  justify-content: space-between;
   position: relative;
   padding: 0rem 0 0 2.25rem;
   margin: 0;
-  cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   user-select: none;
 }
 
@@ -86,7 +111,7 @@
   left: 0;
   z-index: 999;
   height: 25px;
-  width: 150px;
+  width: 25px;
   opacity: 0;
   cursor: pointer;
 }
@@ -102,7 +127,7 @@
 }
 
 /* On mouse-over, add a grey background color */
-.single-checkbox:hover .input ~ .checkmark {
+.single-checkbox .input:hover ~ .checkmark {
   /* background-color: #ccc; */
   border: 1px solid red;
 }
@@ -115,7 +140,7 @@
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content: "";
+  content: '';
   position: absolute;
   display: none;
 }
