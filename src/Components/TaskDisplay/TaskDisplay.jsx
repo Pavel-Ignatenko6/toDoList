@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './styleTaskDisplay.css'
 import { Sorting } from './Sorting'
 
-const Task = ({ taskNameValue, taskDescValue, taskDate, handleCompletedTasks, isCompleted, deleteTask, index }) => {
+const Task = ({ taskNameValue, taskDescValue, taskDate, handleCompletedTasks, isCompleted, deleteTask }) => {
   return (
     <div className={`single-task ${isCompleted ? 'completed' : ''}`}>
       <label className="single-checkbox" htmlFor="status">
@@ -13,11 +13,11 @@ const Task = ({ taskNameValue, taskDescValue, taskDate, handleCompletedTasks, is
           className="input task-input"
           onChange={() => handleCompletedTasks(taskNameValue)}
         />
-        <span className="checkmark"></span>
-      <span className="task-name">{taskNameValue}</span>
-      <span className="task-description">{taskDescValue}</span>
-      <span className="task-date">{taskDate}</span>
-      <i className="fa-solid fa-xmark delete-task-icon" onClick={() => deleteTask(index)}></i>
+        <span className="checkmark" />
+        <span className="task-name">{taskNameValue}</span>
+        <span className="task-description">{taskDescValue}</span>
+        <span className="task-date">{taskDate}</span>
+        <div className="fa-solid fa-xmark delete-task-icon" onClick={deleteTask}></div>
       </label>
     </div>
   )
@@ -74,7 +74,7 @@ export function TaskDisplay() {
   }
 
   // hadle deleted tasks
-  const deleteTask = (index) => {
+  const deleteTask = (index) => () => {
     const newTasks = [...tasks]
     newTasks.splice(index, 1)
     setTasks(newTasks)
@@ -104,8 +104,7 @@ export function TaskDisplay() {
                 taskDate={taskDate}
                 isCompleted={completedTasks.some(task => task === taskNameValue)}
                 handleCompletedTasks={handleCompletedTasks}
-                deleteTask={deleteTask}
-                index={index}
+                deleteTask={deleteTask(index)}
               />
             )
           })}
