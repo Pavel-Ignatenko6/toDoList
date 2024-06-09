@@ -31,16 +31,26 @@
   display: flex;
 }
 
-.sort-icons {
-  width: 1rem;
-  height: 1rem;
+.sort-icon {
+  width: 1.5rem;
+  height: 1.5rem;
   margin-left: 0.7rem;
+  cursor: pointer;
+  /* fill: #807eff; */
+  fill: #aeaeae;
 }
 
-.single-sort-icon {
-  color: #807eff;
+.sort-icon.ascend {
+  fill: #807eff;
   cursor: pointer;
-  height: 0.25rem;
+  height: 1.5rem;
+}
+
+.sort-icon.descend {
+  fill: #807eff;
+  cursor: pointer;
+  height: 1.5rem;
+  transform: rotate(180deg);
 }
 
 .fa-sort-up,
@@ -58,7 +68,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin: 0.3rem 0 1rem 3rem;
+  margin: 0.3rem 0 1rem 1.25rem;
 }
 
 .single-task.completed {
@@ -70,21 +80,29 @@
   display: inline-block;
 }
 
+.task-id {
+  font-size: 1.1rem;
+  align-self: center;
+  margin-right: 1rem;
+}
+
 .task-name {
   margin-left: 5.5rem;
   width: 7rem;
 }
 
 .task-description {
-  margin-left: 2rem;
+  margin-left: 2.5rem;
   width: 8rem;
 }
 
 .task-date {
-  margin-left: 3rem;
+  margin-left: 2.5rem;
+  align-self: center;
 }
 
 .delete-task-icon {
+  align-self: center;
   color: red;
   cursor: pointer;
   font-size: 1.5rem;
@@ -104,10 +122,15 @@
   user-select: none;
 }
 
+.single-checkbox span {
+  align-self: center;
+}
+
 /* Hide the browser's default checkbox */
 .single-checkbox .input {
   position: absolute;
-  top: 0;
+  top: 50%;
+  transform: translateY(-50%);
   left: 0;
   z-index: 999;
   height: 25px;
@@ -119,7 +142,8 @@
 /* Create a custom checkbox */
 .checkmark {
   position: absolute;
-  top: 0px;
+  top: 50%;
+  transform: translateY(-50%);
   left: 0;
   height: 25px;
   width: 25px;

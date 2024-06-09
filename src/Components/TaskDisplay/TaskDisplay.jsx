@@ -5,6 +5,7 @@ import { Sorting } from './Sorting'
 const Task = ({ taskNameValue, taskDescValue, taskDate, handleCompletedTasks, isCompleted, deleteTask }) => {
   return (
     <div className={`single-task ${isCompleted ? 'completed' : ''}`}>
+      <span className="task-id">{index + 1 + '.'}</span>
       <label className="single-checkbox" htmlFor="status">
         <input
           type="checkbox"
@@ -30,6 +31,13 @@ export function TaskDisplay() {
   const [completedTasks, setCompletedTasks] = useState([])
   // state for a filter checkbox
   const [isChecked, setIsChecked] = useState(false)
+  // state for a search bar
+  const [searchBar, setSearchBar] = useState('')
+  // state for a sorting icon
+  const [isSorted, setIsSorted] = useState({ column: null, direction: null })
+
+  console.log(isSorted.column)
+  console.log(isSorted.direction)
 
   // useEffect to get data from local storage
   useEffect(() => {
@@ -73,6 +81,56 @@ export function TaskDisplay() {
     }
   }
 
+  // handle sorting
+  const handleSortClick = sortIconIndex => {
+    if (isSorted.direction !== null && isSorted.column === sortIconIndex) {
+      setIsSorted({
+        column: sortIconIndex,
+        direction: sortIconIndex === isSorted.column ? (isSorted.direction === 'ascend' ? 'descend' : null) : null,
+      })
+      console.log(sortIconIndex)
+    } else {
+      setIsSorted({ column: sortIconIndex, direction: 'ascend' })
+    }
+  }
+  const sortTasks = () => {
+    const sortedTasks = [...getTasks()]
+
+    if (isSorted.direction !== null) {
+      if (isSorted.column === 0) {
+        // reverse the tasks array
+      } else if (isSorted.column === 1) {
+        // sort tasks by name
+        return isSorted.direction === 'ascend'
+          ? sortedTasks.sort((a, b) => (a[0] > b[0] ? 1 : -1))
+          : sortedTasks.sort((a, b) => (a[0] > b[0] ? -1 : 1))
+      } else if (isSorted.column === 2) {
+        // sort tasks by description
+        return isSorted.direction === 'ascend'
+          ? sortedTasks.sort((a, b) => (a[1] > b[1] ? 1 : -1))
+          : sortedTasks.sort((a, b) => (a[1] > b[1] ? -1 : 1))
+      } else if (isSorted.column === 3) {
+        // sort tasks by date
+        return isSorted.direction === 'ascend'
+          ? sortedTasks.sort((a, b) => (a[2] > b[2] ? 1 : -1))
+          : sortedTasks.sort((a, b) => (a[2] > b[2] ? -1 : 1))
+      }
+    } else {
+      return getTasks()
+    }
+  }
+
+  // handle search bar
+  const searchTask = () => {
+    // изменить на sortTasks v
+    const tasks = sortTasks()
+    return searchBar === ''
+      ? tasks
+      : tasks.filter(
+          task => task[0].toLowerCase().includes(searchBar.toLowerCase()) || task[1].toLowerCase().includes(searchBar.toLowerCase())
+        )
+  }
+
   // hadle deleted tasks
   const deleteTask = (index) => () => {
     const newTasks = [...tasks]
@@ -85,20 +143,20 @@ export function TaskDisplay() {
     <div className="display-task-container container">
       <h2>My tasks</h2>
       <label className="single-checkbox" id="filter-checkbox" htmlFor="filter">
-        <span className="checkbox-wrapper">Show only unfulfilled</span>
+        <span className="checkbox-wrapper">Hide completed tasks</span>
         <input type="checkbox" name="filter" checked={isChecked} className="input filter-input" onChange={handleFilter} />
         <span className="checkmark"></span>
       </label>
-      <input type="text" placeholder="Search" className="search-bar" />
+      <input type="text" placeholder="Search" className="search-bar" value={searchBar} onChange={e => setSearchBar(e.target.value)} />
 
       <div className="display">
-        <Sorting />
+        <Sorting isSorted={isSorted} handleSortClick={handleSortClick} />
         <div className="tasks">
-          {getTasks().map((task, index) => {
+          {searchTask().map((task, index) => {
             const [taskNameValue, taskDescValue, taskDate] = task
             return (
               <Task
-                key={taskNameValue + taskDescValue + taskDate}
+                key={index}
                 taskNameValue={taskNameValue}
                 taskDescValue={taskDescValue}
                 taskDate={taskDate}
