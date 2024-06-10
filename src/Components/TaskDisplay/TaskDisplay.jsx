@@ -5,7 +5,6 @@ import { Sorting } from './Sorting'
 const Task = ({ taskNameValue, taskDescValue, taskDate, handleCompletedTasks, isCompleted, deleteTask }) => {
   return (
     <div className={`single-task ${isCompleted ? 'completed' : ''}`}>
-      <span className="task-id">{index + 1 + '.'}</span>
       <label className="single-checkbox" htmlFor="status">
         <input
           type="checkbox"
@@ -35,9 +34,6 @@ export function TaskDisplay() {
   const [searchBar, setSearchBar] = useState('')
   // state for a sorting icon
   const [isSorted, setIsSorted] = useState({ column: null, direction: null })
-
-  console.log(isSorted.column)
-  console.log(isSorted.direction)
 
   // useEffect to get data from local storage
   useEffect(() => {
@@ -92,6 +88,12 @@ export function TaskDisplay() {
     } else {
       setIsSorted({ column: sortIconIndex, direction: 'ascend' })
     }
+    if (isSorted.column === 0) {
+      setIsSorted({
+        column: sortIconIndex,
+        direction: sortIconIndex === isSorted.column ? (isSorted.direction === 'ascend' ? 'descend' : 'ascend') : 'ascend',
+      })
+    }
   }
   const sortTasks = () => {
     const sortedTasks = [...getTasks()]
@@ -99,6 +101,7 @@ export function TaskDisplay() {
     if (isSorted.direction !== null) {
       if (isSorted.column === 0) {
         // reverse the tasks array
+        return isSorted.direction === 'ascend' ? sortedTasks.reverse() : sortedTasks
       } else if (isSorted.column === 1) {
         // sort tasks by name
         return isSorted.direction === 'ascend'
@@ -132,7 +135,7 @@ export function TaskDisplay() {
   }
 
   // hadle deleted tasks
-  const deleteTask = (index) => () => {
+  const deleteTask = index => () => {
     const newTasks = [...tasks]
     newTasks.splice(index, 1)
     setTasks(newTasks)
