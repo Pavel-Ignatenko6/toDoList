@@ -37,11 +37,11 @@ input {
   height: 3rem;
   border-radius: 3rem;
   border: none;
-  padding-left: 1rem;
+  padding: 0 .5rem 0 .5rem;
 }
 
 .container {
-  width: 32rem;
+  width: 40rem;
   border-radius: 2.5rem;
   padding: 1rem 1rem;
   margin: 2rem auto 0;

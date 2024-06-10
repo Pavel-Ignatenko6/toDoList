@@ -1,7 +1,6 @@
 .display-task-container {
   background-color: #c6c6c6a0;
   position: relative;
-  width: 40rem;
 }
 
 #filter-checkbox {
@@ -36,26 +35,18 @@
   height: 1.5rem;
   margin-left: 0.7rem;
   cursor: pointer;
-  /* fill: #807eff; */
   fill: #aeaeae;
 }
 
-.sort-icon.ascend {
+.sort-icon.ascend,
+.sort-icon.descend {
   fill: #807eff;
   cursor: pointer;
   height: 1.5rem;
 }
 
 .sort-icon.descend {
-  fill: #807eff;
-  cursor: pointer;
-  height: 1.5rem;
   transform: rotate(180deg);
-}
-
-.fa-sort-up,
-.fa-sort-down {
-  font-size: 1.25rem;
 }
 
 .tasks {
@@ -68,7 +59,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin: 0.3rem 0 1rem 1.25rem;
+  margin: 0.3rem 0 1rem 2.825rem;
 }
 
 .single-task.completed {
@@ -78,12 +69,6 @@
 
 .single-checkbox span {
   display: inline-block;
-}
-
-.task-id {
-  font-size: 1.1rem;
-  align-self: center;
-  margin-right: 1rem;
 }
 
 .task-name {
@@ -155,12 +140,6 @@
   /* background-color: #ccc; */
   border: 1px solid red;
 }
-
-/* оставил для примера v */
-/* When the checkbox is checked, add a blue background */
-/* .single-checkbox .input:checked ~ .checkmark {
-  background-color: #2196F3;
-} */
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {

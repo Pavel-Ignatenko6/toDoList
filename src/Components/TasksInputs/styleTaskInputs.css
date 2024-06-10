@@ -9,14 +9,17 @@
 
 .add-task-inputs {
   display: flex;
-  justify-content: center;
-  margin-bottom: .5rem;
+  margin: 1rem 0 1rem 1rem;
 }
 
 .single-input {
   display: flex;
   flex-direction: column;
   margin-right: 1rem;
+}
+
+.desc-input {
+  width: 19rem;
 }
 
 .label {
