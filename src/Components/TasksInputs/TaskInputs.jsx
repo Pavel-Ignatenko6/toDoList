@@ -1,4 +1,4 @@
-import './styleAddTask.css'
+import './styleTaskInputs.css'
 import { useState } from 'react'
 import { addToLocalStorage } from '../../helpers/handleLocalStorage'
 export const TaskInputs = () => {
@@ -53,6 +53,7 @@ export const TaskInputs = () => {
                 {inputName}
               </label>
               <input
+                className={index === 1 ? 'desc-input' : 'name-input'}
                 type="text"
                 name={inputName}
                 placeholder={placeHolderArr[index]}
