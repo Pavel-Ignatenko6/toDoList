@@ -97,27 +97,14 @@ export function TaskDisplay() {
   }
   const sortTasks = () => {
     const sortedTasks = [...getTasks()]
-
     if (isSorted.direction !== null) {
       if (isSorted.column === 0) {
         // reverse the tasks array
         return isSorted.direction === 'ascend' ? sortedTasks.reverse() : sortedTasks
-      } else if (isSorted.column === 1) {
-        // sort tasks by name
-        return isSorted.direction === 'ascend'
-          ? sortedTasks.sort((a, b) => (a[0] > b[0] ? 1 : -1))
-          : sortedTasks.sort((a, b) => (a[0] > b[0] ? -1 : 1))
-      } else if (isSorted.column === 2) {
-        // sort tasks by description
-        return isSorted.direction === 'ascend'
-          ? sortedTasks.sort((a, b) => (a[1] > b[1] ? 1 : -1))
-          : sortedTasks.sort((a, b) => (a[1] > b[1] ? -1 : 1))
-      } else if (isSorted.column === 3) {
-        // sort tasks by date
-        return isSorted.direction === 'ascend'
-          ? sortedTasks.sort((a, b) => (a[2] > b[2] ? 1 : -1))
-          : sortedTasks.sort((a, b) => (a[2] > b[2] ? -1 : 1))
       }
+      return isSorted.direction === 'ascend'
+        ? sortedTasks.sort((a, b) => (a[isSorted.column - 1] > b[isSorted.column - 1] ? 1 : -1))
+        : sortedTasks.sort((a, b) => (a[isSorted.column - 1] > b[isSorted.column - 1] ? -1 : 1))
     } else {
       return getTasks()
     }
