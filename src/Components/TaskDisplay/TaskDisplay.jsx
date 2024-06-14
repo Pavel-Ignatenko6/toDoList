@@ -123,7 +123,7 @@ export function TaskDisplay() {
 
   // hadle deleted tasks
   const deleteTask = index => () => {
-    const newTasks = [...tasks]
+    const newTasks = [...sortTasks()]
     newTasks.splice(index, 1)
     setTasks(newTasks)
     localStorage.setItem('tasks', JSON.stringify(newTasks))
