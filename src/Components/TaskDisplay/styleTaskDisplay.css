@@ -1,6 +1,7 @@
 .display-task-container {
   background-color: #c6c6c6a0;
   position: relative;
+  margin-bottom: 2rem;
 }
 
 #filter-checkbox {
