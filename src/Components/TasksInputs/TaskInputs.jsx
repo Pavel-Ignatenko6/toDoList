@@ -37,6 +37,8 @@ export const TaskInputs = () => {
     // check if inputs contain letters  // value.trim()
     if (regex.test(taskNameValue) && regex.test(taskDescValue)) {
       addToLocalStorage([taskNameValue, taskDescValue, taskDate])
+      setTaskNameValue('')
+      setTaskDescValue('')
     } else {
       alert('Task name and description must contain only letters and numbers')
     }
