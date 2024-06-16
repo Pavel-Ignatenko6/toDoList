@@ -1,50 +1,48 @@
-import { useState } from 'react'
+const inputMap = [
+  {
+    id: 1,
+    name: 'Full name',
+    type: 'text',
+    placeholder: 'Enter your Full name',
+    required: true,
+  },
+  {
+    id: 2,
+    name: 'Age',
+    type: 'number',
+    placeholder: 'Enter number from 1 to 99',
+    required: true,
+    min: 1,
+    max: 99,
+  },
+  {
+    id: 3,
+    name: 'Email',
+    type: 'email',
+    placeholder: 'Enter your Email',
+    required: true,
+  },
+]
 
-const inputs = ['Full name', 'Age', 'Email']
 const radioBtns = ['I love it', `It's allright`, 'Not really', 'Not at all']
 
-const setPlaceholder = index => {
-  if (index === 1) {
-    return 'Enter number from 1 to 99'
-  }
-  return `Enter your ${inputs[index]}`
-}
-
-const setInputType = index => {
-  if (index === 0) {
-    return 'text'
-  } else if (index === 1) {
-    return 'number'
-  } else if (index === 2) {
-    return 'email'
-  }
-}
-
 export default function ContactsPage() {
-  // const [inputValue, setInputValue] = useState('')
-  // const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const submitForm = e => {
-    e.preventDefault()
-    console.log('form submitted')
-  }
-
   return (
     <div className="contacts-page">
       <h2 className="contacts-text">Please let me know what you like about the app</h2>
       <form className="form-container" onSubmit={submitForm}>
-        {inputs.map((input, index) => {
+        {inputMap.map(input => {
           return (
-            <label key={index} className="label-wrapper" htmlFor="input">
-              <div className="label-name">{input}</div>
+            <label key={input.id} className="label-wrapper" htmlFor="input">
+              <div className="label-name">{input.name}</div>
               <input
                 className="input"
-                type={setInputType(index)}
+                type={input.type}
                 name="input"
-                placeholder={setPlaceholder(index)}
-                min={index === 1 ? 1 : undefined}
-                max={index === 1 ? 99 : undefined}
-                required
+                placeholder={input.placeholder}
+                min={input.min}
+                max={input.max}
+                required={input.required}
               />
             </label>
           )
@@ -64,7 +62,7 @@ export default function ContactsPage() {
           <span>Please let me know what I should add or fix</span>
           <textarea className="review-field" name="review" placeholder="Enter your review here" required></textarea>
         </div>
-        <button className="submit-btn btn" type="submit" >
+        <button className="submit-btn btn" type="submit">
           Submit
         </button>
       </form>
