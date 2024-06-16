@@ -30,7 +30,7 @@ export default function ContactsPage() {
   return (
     <div className="contacts-page">
       <h2 className="contacts-text">Please let me know what you like about the app</h2>
-      <form className="form-container" onSubmit={submitForm}>
+      <form className="form-container">
         {inputMap.map(input => {
           return (
             <label key={input.id} className="label-wrapper" htmlFor="input">
