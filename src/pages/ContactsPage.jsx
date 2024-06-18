@@ -41,10 +41,9 @@ export default function ContactsPage() {
   })
 
   const [radioValue, setRadioValue] = useState('')
-  const [radioChecked, setRadioChecked] = useState(null)
   const [failedToSubmit, setFailedToSubmit] = useState(null)
   const [textAreaValue, setTextAreaValue] = useState('')
-  console.log(failedToSubmit)
+  
   // validation func v
   const handleValidation = e => {
     const { name, value } = e.target
@@ -70,8 +69,6 @@ export default function ContactsPage() {
     })
   }
 
-  console.log(inputsValues);
-
   // submit func
   const handleSubmit = e => {
     e.preventDefault()
@@ -80,8 +77,8 @@ export default function ContactsPage() {
       return false
     } else {
       setFailedToSubmit(false)
-      setRadioValue(null)
       setTextAreaValue('')
+      setRadioValue('')
       setInputsValues({
         'Full name': '',
         Age: '',
@@ -96,7 +93,7 @@ export default function ContactsPage() {
       <form className="form-container" onSubmit={handleSubmit}>
         {inputMap.map(input => {
           return (
-            <div key={input.id} className="single-input">
+            <div key={input.id} className="input-wrapper">
               <label className="label-wrapper" htmlFor={input.name}>
                 <div className="label-name">{input.name}</div>
                 <input
@@ -118,7 +115,7 @@ export default function ContactsPage() {
           {radioBtns.map((radioBtn, index) => {
             return (
               <label key={index} className="radio-wrapper" htmlFor="radioBtn">
-                <input className="radio-btn" type="radio" name="radioBtn" value={radioBtn} onClick={() => setRadioValue(radioBtn)}  />
+                <input className="radio-btn" type="radio" name="radioBtn" checked={radioValue === radioBtn} value={radioBtn} onChange={e => setRadioValue(e.target.value)}  />
                 <div className="radio-name">{radioBtn}</div>
               </label>
             )
