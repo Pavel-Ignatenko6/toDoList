@@ -171,7 +171,7 @@ Contacts page
   box-shadow: 25px 0px 20px -20px rgba(0, 0, 0, 0.45), 0px 25px 20px -20px rgba(0, 0, 0, 0.45), -25px 0px 20px -20px rgba(0, 0, 0, 0.45);
 }
 
-.single-input {
+.input-wrapper {
   position: relative;
   min-width: 28.5rem;
   margin: 1rem 0 1.5rem 4rem;
