@@ -164,19 +164,32 @@ Contacts page
   align-items: center;
   background-color: #c6c6c6a0;
   max-width: 40%;
-  padding: 1rem;
+  padding: 3rem;
   font-size: 1.3rem;
   border: 1px solid black;
   border-radius: 1rem;
   box-shadow: 25px 0px 20px -20px rgba(0, 0, 0, 0.45), 0px 25px 20px -20px rgba(0, 0, 0, 0.45), -25px 0px 20px -20px rgba(0, 0, 0, 0.45);
 }
 
+.single-input {
+  position: relative;
+  min-width: 28.5rem;
+  margin: 1rem 0 1.5rem 4rem;
+  width: 100%;
+}
+
+.inputs-alert {
+  position: absolute;
+  top: 3.5rem ;
+  left: 25%;
+  color: #da0000;
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+
 .label-wrapper {
   display: flex;
   align-items: center;
-  min-width: 28.5rem;
-  width: 100%;
-  margin: 1rem 0 1rem 3rem;
 }
 
 .label-name {
@@ -189,10 +202,26 @@ Contacts page
   font-size: 1rem;
 }
 
+.input-error {
+  border: 2px solid red;
+}
+
+.input-error:focus {
+  outline-color: red;
+}
+
 .form-radio {
+  position: relative;
   align-self: flex-start;
   margin: 1rem 0 0.5rem 1.5rem;
   font-weight: 400;
+}
+
+.radio-alert {
+  color: #da0000;
+  font-weight: 400;
+  font-size: 1.1rem;
+  margin-left: 1.5rem;
 }
 
 .radio-wrapper {
