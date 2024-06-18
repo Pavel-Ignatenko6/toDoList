@@ -6,6 +6,7 @@ const inputMap = [
     name: 'Full name',
     type: 'text',
     placeholder: 'Enter your Full name',
+    pattern: /^[a-zA-Z\s]*$/,
     errorMessage: 'Please enter at least 4 characters',
   },
   {
@@ -13,13 +14,15 @@ const inputMap = [
     name: 'Age',
     type: 'number',
     placeholder: 'Enter number from 1 to 99',
+    pattern: /^(?:0?[1-9]|[1-9][0-9])?$/,
     errorMessage: 'Please enter a number between 1 and 99',
   },
   {
     id: 3,
     name: 'Email',
-    type: 'email',
+    type: 'text',
     placeholder: 'Enter your Email',
+    pattern: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     errorMessage: 'Please enter a valid email address',
   },
 ]
@@ -102,6 +105,7 @@ export default function ContactsPage() {
                   onChange={(e) => handleValidation(e)}
                   type={input.type}
                   name={input.name}
+                  pattern={input.pattern}
                   placeholder={input.placeholder}
                 />
               </label>
